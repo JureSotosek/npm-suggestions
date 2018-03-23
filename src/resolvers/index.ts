@@ -1,5 +1,5 @@
-export const resolvers = { 
-  Query: { 
-    search: () => 'search' 
-  } 
+import { Query } from './Query'
+
+export const resolvers = {
+  Query,
 }
