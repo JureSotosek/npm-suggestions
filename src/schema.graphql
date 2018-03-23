@@ -1,0 +1,9 @@
+type Query {
+  search: String!
+}
+
+# Schema ---------------------------------------------------------------------
+
+schema {
+  query: Query
+}

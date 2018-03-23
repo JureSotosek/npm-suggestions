@@ -1,0 +1,33 @@
+{
+  "name": "emma-suggestions",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
+    "dev": "npm-run-all --parallel start playground",
+    "debug":
+      "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
+    "playground": "graphql playground",
+    "build": "rimraf dist && tsc"
+  },
+  "dependencies": {
+    "elasticsearch": "^14.2.1",
+    "graphql-shield": "^1.1.0",
+    "graphql-yoga": "^1.6.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^1.4.0",
+    "graphql-cli": "^2.15.8",
+    "nodemon": "^1.17.2",
+    "npm-run-all": "^4.1.2",
+    "rimraf": "^2.6.2",
+    "ts-node": "^5.0.1",
+    "typescript": "^2.7.2"
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": true
+  },
+  "license": "MIT"
+}
