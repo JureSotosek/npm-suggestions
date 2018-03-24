@@ -7,8 +7,6 @@ export interface Package {
   name: string
 }
 
-
-
 export async function findPackages(
   query: string,
   packages: Package[],
