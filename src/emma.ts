@@ -1,15 +1,31 @@
-import { es } from './elasticsearch'
+import {es} from './elasticsearch'
 
-export interface Dependency {
+interface Dependency {
+  name: string
+  version: string
+  type: String
+}
+interface Package {
   name: string
 }
-export interface Package {
-  name: string
-}
 
-export async function findPackages(
-  query: string,
-  packages: Package[],
-): Promise<Dependency[]> {
+async function groupPairs(
+  dependencies: Dependency[],
+): Promise<Dependency[][]> {
   return []
+}
+
+async function groupDependencies(
+  dependencies: Dependency[][],
+): Promise<Dependency[][]> {
+  return []
+}
+
+export async function getSuggestions(
+  dependencies: Dependency[],
+): Promise<Package[]> {
+  let dependencyGroups = await groupPairs(dependencies)
+  dependencyGroups = await groupDependencies(dependencyGroups)
+
+  
 }

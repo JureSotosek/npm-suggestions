@@ -1,3 +1,5 @@
 export const Query = {
-  search: () => ""
+  search: (obj, args, context, info) => {
+    console.log(args)
+  }
 }
