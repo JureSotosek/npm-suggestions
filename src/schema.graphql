@@ -11,9 +11,9 @@ input Dependency {
 }
 
 enum DependencyType {
-  dependency
-  devDependency
-  peerDependency
+  Dependency
+  DevDependency
+  PeerDependency
 }
 
 # Types ----------------------------------------------------------------------
