@@ -44,7 +44,7 @@ interface DependencyCoeficientPayload {
   dependencyCoeficient: Number
 }
 
-export const dependencyCoeficient = (dependencies: Dependency[], dependentOn: Dependency[]): DependencyCoeficientPayload => {
+export const dependencyCoeficient = (dependency: Dependency[], dependentOn: Dependency[]): DependencyCoeficientPayload => {
   return {
     bucketSize: 300,
     dependencyCoeficient: 0.90
