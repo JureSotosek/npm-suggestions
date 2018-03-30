@@ -5,15 +5,16 @@
   "scripts": {
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "dev": "npm-run-all --parallel start playground",
-    "debug":
-      "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
+    "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
     "playground": "graphql playground",
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
     "elasticsearch": "^14.2.1",
+    "global": "^4.3.2",
     "graphql-shield": "^1.1.0",
-    "graphql-yoga": "^1.6.1"
+    "graphql-yoga": "^1.6.1",
+    "serverless": "^1.26.1"
   },
   "devDependencies": {
     "dotenv-cli": "^1.4.0",

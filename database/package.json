@@ -1,0 +1,9 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "elasticsearch": "^14.2.2"
+  },
+  "license": "MIT"
+}

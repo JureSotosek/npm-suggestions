@@ -1,0 +1,35 @@
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "name": {
+          "type": "keyword",
+          "index": false
+        },
+        "version": {
+          "type": "keyword",
+          "index": false
+        },
+        "description": {
+          "type": "text",
+          "index": false
+        },
+        "author": {
+          "type": "keyword"
+        },
+        "package": {
+          "properties": {
+            "name": {
+              "type": "keyword",
+              "index": false
+            },
+            "version": {
+              "type": "keyword",
+              "index": false
+            }
+          }
+        }
+      }
+    }
+  }
+}

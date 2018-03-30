@@ -27,5 +27,5 @@ export async function getSuggestions(
   let dependencyGroups = await groupPairs(dependencies)
   dependencyGroups = await groupDependencies(dependencyGroups)
 
-  
+  return []
 }

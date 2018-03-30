@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "_doc": {
+      "properties": {
+        "last_sequence": {
+          "type": "number"
+        },
+        "timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}

@@ -2,26 +2,33 @@ type Query {
   search(dependencies: [Dependency!]!): [Package!]
 }
 
-# Inputs ---------------------------------------------------------------------
-
-input Dependency {
-  name: String!
-  version: String!
-  type: DependencyType!
-}
-
-enum DependencyType {
-  dependency
-  devDependency
-  peerDependency
-}
-
 # Types ----------------------------------------------------------------------
 
 type Package {
   name: String!
   version: String!
   description: String!
+  dependencyType: DependencyType!
+}
+
+type Dependency {
+  name: String!
+  version: String!
+  type: DependencyType!
+}
+
+enum DependencyType {
+  DEPENDENCY
+  DEVDEPENDENCY
+  PEERDEPENDENCY
+}
+
+# Inputs ---------------------------------------------------------------------
+
+input Dependency {
+  name: String!
+  version: String!
+  type: DependencyType!
 }
 
 # Schema ---------------------------------------------------------------------
