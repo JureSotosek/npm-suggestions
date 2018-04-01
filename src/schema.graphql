@@ -1,5 +1,5 @@
 type Query {
-  search(dependencies: [Dependency!]!): [PackagesPayload!]!
+  search(dependencies: [Dependency!]!): [SearchPayload!]!
 }
 
 # Types ----------------------------------------------------------------------
@@ -21,7 +21,7 @@ type Package {
   version: String!
 }
 
-type PackagesPayload {
+type SearchPayload {
   score: Number!
   type: DependencyType!
   package: Package!
