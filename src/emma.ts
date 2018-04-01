@@ -1,17 +1,60 @@
-import {mostFrequent, dependencyCoeficient} from './elasticsearch'
+import { getPackageBucketCount, getFrequentPackages } from './elasticsearch'
+import {
+  Dependency,
+  FrequentPackagesPayload,
+  EvaluatedPackagesPayload,
+} from './utils'
 
-export interface Dependency {
-  name: String
-  version: String
-  type: String
+const packageBucketCountThreshold = 1000
+const dependenciesLengthWeight = 2
+
+const seperateDependencies = (dependencies: Dependency[][]): Dependency[][] => {
+  return dependencies
 }
 
-export interface Package {
-  name: String
+const groupDependencies = (dependencies: Dependency[]): Dependency[][] => {
+  let dependencyGroups = [dependencies]
+  let packageBucketCount = getPackageBucketCount(dependencyGroups)
+
+  while (packageBucketCount < packageBucketCountThreshold) {
+    dependencyGroups = seperateDependencies(dependencyGroups)
+    packageBucketCount = getPackageBucketCount(dependencyGroups)
+  }
+
+  return dependencyGroups
 }
 
-export async function getSuggestions(
+const evaluateFrequentPackages = (
+  frequentPackages: FrequentPackagesPayload[],
+): EvaluatedPackagesPayload[] => {
+  let evaluatedPackages: EvaluatedPackagesPayload[]
+
+  frequentPackages.forEach(packagesFromDependecies => {
+    packagesFromDependecies.frequentPackages.forEach(frequentPackage => {
+      let score =
+        (dependenciesLengthWeight ^
+          packagesFromDependecies.fromDepencies.length) *
+        frequentPackage.corelation
+
+      evaluatedPackages.push({
+        score,
+        type: frequentPackage.type,
+        package: frequentPackage.package,
+      })
+    })
+  })
+
+  return evaluatedPackages
+}
+
+export const getSuggestions = (
   dependencies: Dependency[],
-): Promise<Package[]> {
-  return null
+): EvaluatedPackagesPayload[] => {
+  const dependencyGroups = groupDependencies(dependencies)
+
+  const frequentPackages = getFrequentPackages(dependencyGroups)
+
+  const evaluatedPackages = evaluateFrequentPackages(frequentPackages)
+
+  return evaluatedPackages
 }

@@ -1,15 +1,8 @@
 type Query {
-  search(dependencies: [Dependency!]!): [Package!]
+  search(dependencies: [Dependency!]!): [PackagesPayload!]!
 }
 
 # Types ----------------------------------------------------------------------
-
-type Package {
-  name: String!
-  version: String!
-  description: String!
-  dependencyType: DependencyType!
-}
 
 type Dependency {
   name: String!
@@ -21,6 +14,17 @@ enum DependencyType {
   DEPENDENCY
   DEVDEPENDENCY
   PEERDEPENDENCY
+}
+
+type Package {
+  name: String!
+  version: String!
+}
+
+type PackagesPayload {
+  score: Number!
+  type: DependencyType!
+  package: Package!
 }
 
 # Inputs ---------------------------------------------------------------------

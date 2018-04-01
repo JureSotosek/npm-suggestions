@@ -1,52 +1,45 @@
 import { Client } from 'elasticsearch'
+import { Dependency, FrequentPackagesPayload } from './utils'
 
 const client = new Client({
   host: process.env.ELASTICSEARCH_HOST,
-  log: 'trace'
+  log: 'trace',
 })
 
-interface Dependency {
-  name: String
-  version: String
-  type: String
-  count?: Number
+export const getPackageBucketCount = (
+  dependencyGroups: Dependency[][],
+): Number => {
+  return 100
 }
 
-interface MostFrequentPayload {
-  bucketSize: Number
-  dependencies: Dependency[]
-}
-
-export const mostFrequent = (dependencies: Dependency[]): MostFrequentPayload => {
-  return {
-    bucketSize: 2000,
-    dependencies: [{
-      name: "react",
-      version: "16",
-      type: "dependency",
-      count: 1500
-    },{
-      name: "react-native",
-      version: "16",
-      type: "dependency",
-      count: 700
-    },{
-      name: "styled-components",
-      version: "16",
-      type: "dependency",
-      count: 300
-    }]
-  }
-}
-
-interface DependencyCoeficientPayload {
-  bucketSize: Number
-  dependencyCoeficient: Number
-}
-
-export const dependencyCoeficient = (dependency: Dependency[], dependentOn: Dependency[]): DependencyCoeficientPayload => {
-  return {
-    bucketSize: 300,
-    dependencyCoeficient: 0.90
-  }
+export const getFrequentPackages = (
+  dependencies: Dependency[][],
+): FrequentPackagesPayload[] => {
+  return [
+    {
+      fromDepencies: dependencies[0],
+      frequentPackages: [
+        {
+          corelation: 0.8,
+          type: 'dependency',
+          package: { name: 'react', version: '16' },
+        },
+        {
+          corelation: 0.4,
+          type: 'dependency',
+          package: { name: 'reactNative', version: '16' },
+        },
+        {
+          corelation: 0.1,
+          type: 'dependency',
+          package: { name: 'styledComponents', version: '16' },
+        },
+        {
+          corelation: 0.09,
+          type: 'dependency',
+          package: { name: 'dotenv', version: '16' },
+        },
+      ],
+    },
+  ]
 }
