@@ -31,7 +31,7 @@ const evaluateFrequentPackages = (
 
   frequentPackages.forEach(packagesFromDependecies => {
     packagesFromDependecies.frequentPackages.forEach(frequentPackage => {
-      let score =
+      const score =
         (dependenciesLengthWeight ^
           packagesFromDependecies.fromDepencies.length) *
         frequentPackage.corelation
