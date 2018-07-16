@@ -1,38 +1,18 @@
 {
-  "name": "emma-suggestions",
-  "version": "1.0.0",
-  "main": "dist/index.js",
+  "name": "graphql-boilerplate",
   "scripts": {
-    "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
-    "dev": "npm-run-all --parallel start playground",
-    "debug": "dotenv -- nodemon -e ts,graphql -x ts-node --inspect src/index.ts",
+    "start": "nodemon -e js,graphql -x node -r dotenv/config src/index.js",
+    "debug": "nodemon -e js,graphql -x node --inspect -r dotenv/config src/index.js",
     "playground": "graphql playground",
-    "build": "rimraf dist && tsc"
+    "dev": "npm-run-all --parallel start"
   },
   "dependencies": {
-    "elasticsearch": "^14.2.1",
-    "global": "^4.3.2",
-    "graphql": "^0.13.2",
-    "graphql-shield": "^1.1.0",
-    "graphql-yoga": "^1.6.1",
-    "serverless": "^1.26.1"
+    "graphql-yoga": "1.14.12"
   },
   "devDependencies": {
-    "dotenv-cli": "^1.4.0",
-    "graphql-cli": "^2.15.8",
-    "nodemon": "^1.17.2",
-    "npm-run-all": "^4.1.2",
-    "rimraf": "^2.6.2",
-    "ts-node": "^5.0.1",
-    "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.10.0",
-    "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.8.1"
-  },
-  "prettier": {
-    "semi": false,
-    "trailingComma": "all",
-    "singleQuote": true
-  },
-  "license": "MIT"
+    "dotenv": "6.0.0",
+    "graphql-cli": "2.16.4",
+    "nodemon": "1.18.1",
+    "npm-run-all": "4.1.3"
+  }
 }
