@@ -1,7 +1,7 @@
 const { suggestions, search } = require('../emma');
 
 const Query = {
-  async suggest(parent, args, ctx, info) {
+  async suggestions(parent, args, ctx, info) {
     return suggestions(args.dependencies);
   },
 

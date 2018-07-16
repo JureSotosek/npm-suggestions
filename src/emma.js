@@ -10,7 +10,9 @@ async function suggestions(dependencies) {
     }
   );
 
-  const algoliaResponse = await getPackages(suggestions);
+  const algoliaResponse = await getPackages(
+    suggestions.slice(dependencies.length)
+  );
 
   const packages = algoliaResponse.results.map(package => {
     return {
