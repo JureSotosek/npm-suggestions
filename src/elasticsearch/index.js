@@ -5,7 +5,7 @@ function queryBuilder(dependencies) {
   const dependenciesQuery = dependencies.map(dependency => {
     return {
       term: {
-        dependencies: dependency.name
+        dependencies: dependency
       }
     };
   });

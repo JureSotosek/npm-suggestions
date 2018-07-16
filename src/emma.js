@@ -1,18 +1,44 @@
 const { getSuggestions } = require('./elasticsearch');
+const { search: algoliaSearch, getPackages } = require('./algolia');
 
 async function suggestions(dependencies) {
-  const response = await getSuggestions(dependencies);
+  const elasticsearchResponse = await getSuggestions(dependencies);
 
-  const suggestions = response.aggregations.includesDeps.mostCommon.buckets.map(
+  const suggestions = elasticsearchResponse.aggregations.includesDeps.mostCommon.buckets.map(
     suggestion => {
-      return {
-        package: { name: suggestion.key },
-        score: suggestion.doc_count
-      };
+      return suggestion.key;
     }
   );
 
-  return suggestions;
+  const algoliaResponse = await getPackages(suggestions);
+
+  const packages = algoliaResponse.results.map(package => {
+    return {
+      name: package.name,
+      humanDownloadsLast30Days: package.humanDownloadsLast30Days,
+      version: package.version,
+      description: package.description,
+      owner: package.owner.name
+    };
+  });
+
+  return packages;
 }
 
-module.exports = { suggestions };
+async function search(query) {
+  const response = await algoliaSearch(query);
+
+  const packages = response.hits.map(package => {
+    return {
+      name: package.name,
+      humanDownloadsLast30Days: package.humanDownloadsLast30Days,
+      version: package.version,
+      description: package.description,
+      owner: package.owner.name
+    };
+  });
+
+  return packages;
+}
+
+module.exports = { suggestions, search };

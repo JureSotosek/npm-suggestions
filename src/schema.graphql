@@ -1,16 +1,12 @@
 type Query {
-  search(dependencies: [Dependency]!): [SearchPayload]!
-}
-
-type SearchPayload {
-  package: Package!
-  score: Int!
+  suggest(dependencies: [String]!): [Package]!
+  search(query: String!): [Package]!
 }
 
 type Package {
   name: String!
-}
-
-input Dependency {
-  name: String!
+  version: String
+  description: String
+  owner: String
+  humanDownloadsLast30Days: String
 }

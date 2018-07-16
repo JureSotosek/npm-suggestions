@@ -7,9 +7,11 @@
     "dev": "npm-run-all --parallel start"
   },
   "dependencies": {
+    "algoliasearch": "^3.29.0",
+    "dotenv": "6.0.0",
     "elasticsearch": "^15.1.1",
     "graphql-yoga": "1.14.12",
-    "dotenv": "6.0.0"
+    "pouchdb": "^7.0.0"
   },
   "devDependencies": {
     "graphql-cli": "2.16.4",
