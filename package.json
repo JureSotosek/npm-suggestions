@@ -7,6 +7,7 @@
     "dev": "npm-run-all --parallel start"
   },
   "dependencies": {
+    "elasticsearch": "^15.1.1",
     "graphql-yoga": "1.14.12"
   },
   "devDependencies": {
