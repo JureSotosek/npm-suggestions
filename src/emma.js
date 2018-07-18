@@ -1,30 +1,56 @@
 const { getSuggestions } = require('./elasticsearch');
 const { search: algoliaSearch, getPackages } = require('./algolia');
 
-async function suggestions(dependencies) {
-  const elasticsearchResponse = await getSuggestions(dependencies);
+async function suggestions(dependencies, devDependencies) {
+  const elasticsearchResponse = await getSuggestions(
+    dependencies,
+    devDependencies
+  );
 
-  const suggestions = elasticsearchResponse.aggregations.includesDeps.mostCommon.buckets.map(
+  const suggestedDependencies = elasticsearchResponse.aggregations.includesDeps.mostCommonDependencies.buckets.map(
     suggestion => {
       return suggestion.key;
     }
   );
 
-  const algoliaResponse = await getPackages(
-    suggestions.slice(dependencies.length)
+  const suggestedDevDependencies = elasticsearchResponse.aggregations.includesDeps.mostCommonDevDependencies.buckets.map(
+    suggestion => {
+      return suggestion.key;
+    }
   );
 
-  const packages = algoliaResponse.results.map(package => {
-    return {
-      name: package.name,
-      humanDownloadsLast30Days: package.humanDownloadsLast30Days,
-      version: package.version,
-      description: package.description,
-      owner: package.owner.name
-    };
-  });
+  const algoliaResponse = await getPackages([
+    ...suggestedDependencies.slice(dependencies ? dependencies.length : 0),
+    ...suggestedDevDependencies.slice(
+      devDependencies ? devDependencies.length : 0
+    )
+  ]);
 
-  return packages;
+  const packages = algoliaResponse.results
+    .filter(package => suggestedDependencies.includes(package.name))
+    .map(package => {
+      return {
+        name: package.name,
+        humanDownloadsLast30Days: package.humanDownloadsLast30Days,
+        version: package.version,
+        description: package.description,
+        owner: package.owner.name
+      };
+    });
+
+  const devPackages = algoliaResponse.results
+    .filter(package => suggestedDevDependencies.includes(package.name))
+    .map(package => {
+      return {
+        name: package.name,
+        humanDownloadsLast30Days: package.humanDownloadsLast30Days,
+        version: package.version,
+        description: package.description,
+        owner: package.owner.name
+      };
+    });
+
+  return { dependencies: packages, devDependencies: devPackages };
 }
 
 async function search(query) {

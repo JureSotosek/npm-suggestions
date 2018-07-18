@@ -1,6 +1,14 @@
 type Query {
-  suggestions(dependencies: [String]!): [Package]!
+  suggestions(
+    dependencies: [String]
+    devDependencies: [String]
+  ): suggestionsPayload!
   search(query: String!): [Package]!
+}
+
+type suggestionsPayload {
+  dependencies: [Package]!
+  devDependencies: [Package]!
 }
 
 type Package {

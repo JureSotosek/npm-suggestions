@@ -1,14 +1,26 @@
 const { getClient } = require('./client');
 const config = require('../config');
 
-function queryBuilder(dependencies) {
-  const dependenciesQuery = dependencies.map(dependency => {
-    return {
-      term: {
-        dependencies: dependency
-      }
-    };
-  });
+function queryBuilder(dependencies, devDependencies) {
+  const dependenciesQuery = dependencies
+    ? dependencies.map(dependency => {
+        return {
+          term: {
+            dependencies: dependency
+          }
+        };
+      })
+    : [];
+
+  const devDependenciesQuery = devDependencies
+    ? devDependencies.map(devDependency => {
+        return {
+          term: {
+            devDependencies: devDependency
+          }
+        };
+      })
+    : [];
 
   return {
     size: 0,
@@ -16,13 +28,18 @@ function queryBuilder(dependencies) {
       includesDeps: {
         filter: {
           bool: {
-            must: dependenciesQuery
+            must: [...dependenciesQuery, ...devDependenciesQuery]
           }
         },
         aggs: {
-          mostCommon: {
+          mostCommonDependencies: {
             terms: {
               field: 'dependencies'
+            }
+          },
+          mostCommonDevDependencies: {
+            terms: {
+              field: 'devDependencies'
             }
           }
         }
@@ -31,12 +48,12 @@ function queryBuilder(dependencies) {
   };
 }
 
-async function getSuggestions(dependencies) {
+async function getSuggestions(dependencies, devDependencies) {
   const client = await getClient();
 
   return await client.search({
     index: config.indexName,
-    body: queryBuilder(dependencies)
+    body: queryBuilder(dependencies, devDependencies)
   });
 }
 
