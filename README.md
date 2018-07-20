@@ -1,4 +1,4 @@
-# 💫emma-suggestions🤓👓
+# 🎯emma-suggestions🤓🗝
 
 A GraphQL API that suggests new packages for you to download based on the ones you already have installed.
 
