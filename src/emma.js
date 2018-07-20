@@ -14,22 +14,26 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
     bucketSize
   } = parseElasticsearchResponse(elasticsearchResponse);
 
+  const shortenedSuggestedDependencies = suggestedDependencies
+    .filter(dependency => !dependencies.includes(dependency))
+    .slice(0, limit);
+
+  const shortenedSuggestedDevDependencies = suggestedDevDependencies
+    .filter(devDependency => !devDependencies.includes(devDependency))
+    .slice(0, limit);
+
   const algoliaResponse = await getPackages([
-    ...suggestedDependencies
-      .filter(dependency => !dependencies.includes(dependency))
-      .slice(0, limit),
-    ...suggestedDevDependencies
-      .filter(devDependency => !devDependencies.includes(devDependency))
-      .slice(0, limit)
+    ...shortenedSuggestedDependencies,
+    ...shortenedSuggestedDevDependencies
   ]);
 
   const packages = parseAlgoliaResponse(algoliaResponse);
 
   const suggestedPackages = packages.filter(package =>
-    suggestedDependencies.includes(package.name)
+    shortenedSuggestedDependencies.includes(package.name)
   );
   const suggestedDevPackages = packages.filter(package =>
-    suggestedDevDependencies.includes(package.name)
+    shortenedSuggestedDevDependencies.includes(package.name)
   );
 
   return {
