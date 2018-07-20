@@ -14,8 +14,6 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
     bucketSize
   } = parseElasticsearchResponse(elasticsearchResponse);
 
-  console.log(bucketSize);
-
   const algoliaResponse = await getPackages([
     ...suggestedDependencies
       .filter(dependency => !dependencies.includes(dependency))
