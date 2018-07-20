@@ -1,56 +1,43 @@
 const { getSuggestions } = require('./elasticsearch');
 const { search: algoliaSearch, getPackages } = require('./algolia');
+const { parseElasticsearchResponse, parseAlgoliaResponse } = require('./libs');
 
-async function suggestions(dependencies, devDependencies) {
+async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
   const elasticsearchResponse = await getSuggestions(
     dependencies,
     devDependencies
   );
 
-  const suggestedDependencies = elasticsearchResponse.aggregations.includesDeps.mostCommonDependencies.buckets.map(
-    suggestion => {
-      return suggestion.key;
-    }
-  );
+  const {
+    suggestedDependencies,
+    suggestedDevDependencies,
+    bucketSize
+  } = parseElasticsearchResponse(elasticsearchResponse);
 
-  const suggestedDevDependencies = elasticsearchResponse.aggregations.includesDeps.mostCommonDevDependencies.buckets.map(
-    suggestion => {
-      return suggestion.key;
-    }
-  );
+  console.log(bucketSize);
 
   const algoliaResponse = await getPackages([
-    ...suggestedDependencies.slice(dependencies ? dependencies.length : 0),
-    ...suggestedDevDependencies.slice(
-      devDependencies ? devDependencies.length : 0
-    )
+    ...suggestedDependencies
+      .filter(dependency => !dependencies.includes(dependency))
+      .slice(0, limit),
+    ...suggestedDevDependencies
+      .filter(devDependency => !devDependencies.includes(devDependency))
+      .slice(0, limit)
   ]);
 
-  const packages = algoliaResponse.results
-    .filter(package => suggestedDependencies.includes(package.name))
-    .map(package => {
-      return {
-        name: package.name,
-        humanDownloadsLast30Days: package.humanDownloadsLast30Days,
-        version: package.version,
-        description: package.description,
-        owner: package.owner.name
-      };
-    });
+  const packages = parseAlgoliaResponse(algoliaResponse);
 
-  const devPackages = algoliaResponse.results
-    .filter(package => suggestedDevDependencies.includes(package.name))
-    .map(package => {
-      return {
-        name: package.name,
-        humanDownloadsLast30Days: package.humanDownloadsLast30Days,
-        version: package.version,
-        description: package.description,
-        owner: package.owner.name
-      };
-    });
+  const suggestedPackages = packages.filter(package =>
+    suggestedDependencies.includes(package.name)
+  );
+  const suggestedDevPackages = packages.filter(package =>
+    suggestedDevDependencies.includes(package.name)
+  );
 
-  return { dependencies: packages, devDependencies: devPackages };
+  return {
+    dependencies: suggestedPackages,
+    devDependencies: suggestedDevPackages
+  };
 }
 
 async function search(query) {
@@ -58,10 +45,7 @@ async function search(query) {
 
   const packages = response.hits.map(package => {
     return {
-      name: package.name,
-      humanDownloadsLast30Days: package.humanDownloadsLast30Days,
-      version: package.version,
-      description: package.description,
+      ...package,
       owner: package.owner.name
     };
   });

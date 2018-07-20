@@ -51,7 +51,7 @@ function queryBuilder(dependencies, devDependencies) {
 async function getSuggestions(dependencies, devDependencies) {
   const client = await getClient();
 
-  return await client.search({
+  return client.search({
     index: config.indexName,
     body: queryBuilder(dependencies, devDependencies)
   });

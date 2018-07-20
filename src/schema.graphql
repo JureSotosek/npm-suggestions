@@ -2,6 +2,7 @@ type Query {
   suggestions(
     dependencies: [String]
     devDependencies: [String]
+    limit: Int
   ): suggestionsPayload!
   search(query: String!): [Package]!
 }
@@ -9,6 +10,11 @@ type Query {
 type suggestionsPayload {
   dependencies: [Package]!
   devDependencies: [Package]!
+}
+
+type DependencyPayload {
+  package: Package!
+  score: Float!
 }
 
 type Package {
