@@ -16,18 +16,6 @@ function parseElasticsearchResponse(response) {
   };
 }
 
-function parseAlgoliaResponse(response) {
-  const packages = response.results.map(package => {
-    return {
-      ...package,
-      owner: package.owner.name
-    };
-  });
-
-  return packages;
-}
-
 module.exports = {
-  parseElasticsearchResponse,
-  parseAlgoliaResponse
+  parseElasticsearchResponse
 };

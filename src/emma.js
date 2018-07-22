@@ -1,6 +1,6 @@
 const { getSuggestions } = require('./elasticsearch');
 const { search: algoliaSearch, getPackages } = require('./algolia');
-const { parseElasticsearchResponse, parseAlgoliaResponse } = require('./libs');
+const { parseElasticsearchResponse } = require('./libs');
 
 async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
   const elasticsearchResponse = await getSuggestions(
@@ -27,7 +27,7 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
     ...shortenedSuggestedDevDependencies
   ]);
 
-  const packages = parseAlgoliaResponse(algoliaResponse);
+  const packages = algoliaResponse.results;
 
   const suggestedPackages = packages.filter(package =>
     shortenedSuggestedDependencies.includes(package.name)
