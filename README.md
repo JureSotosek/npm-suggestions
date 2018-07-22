@@ -24,7 +24,7 @@ See [config.js](./config.js):
 - `password`: elasticsearch instance password
 
 ### Other:
-- `indexName` - default: `npm-registry` name of the elasticsearch indexproblems
+- `indexName` - default: `npm-registry` name of the elasticsearch index
 
 ## License
 
