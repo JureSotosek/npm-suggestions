@@ -19,8 +19,9 @@ type DependencyPayload {
 
 type Package {
   name: String!
-  version: String
-  description: String
-  owner: String
-  humanDownloadsLast30Days: String
+  version: String!
+  description: String!
+  owner: String!
+  humanDownloadsLast30Days: String!
+  objectID: String!
 }
