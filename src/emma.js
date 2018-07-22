@@ -45,14 +45,7 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
 async function search(query) {
   const response = await algoliaSearch(query);
 
-  const packages = response.hits.map(package => {
-    return {
-      ...package,
-      owner: package.owner.name
-    };
-  });
-
-  return packages;
+  return response.hits;
 }
 
 module.exports = { suggestions, search };

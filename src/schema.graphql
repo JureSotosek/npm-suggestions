@@ -21,7 +21,11 @@ type Package {
   name: String!
   version: String!
   description: String!
-  owner: String!
+  owner: Owner!
   humanDownloadsLast30Days: String!
   objectID: String!
+}
+
+type Owner {
+  name: String!
 }
