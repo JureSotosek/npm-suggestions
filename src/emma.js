@@ -11,8 +11,7 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
 
   const {
     suggestedDependencies,
-    suggestedDevDependencies,
-    bucketSize
+    suggestedDevDependencies
   } = parseElasticsearchResponse(elasticsearchResponse);
 
   const filteredSuggestedDependencies = suggestedDependencies.filter(
