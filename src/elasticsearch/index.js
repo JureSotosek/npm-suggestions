@@ -6,7 +6,7 @@ function queryBuilder(dependencies, devDependencies, limit) {
     ? dependencies.map(dependency => {
         return {
           term: {
-            expandedDependencies: dependency
+            dependencies: dependency
           }
         };
       })
@@ -18,7 +18,7 @@ function queryBuilder(dependencies, devDependencies, limit) {
     ? devDependencies.map(devDependency => {
         return {
           term: {
-            devExpandedDependencies: devDependency
+            devDependencies: devDependency
           }
         };
       })

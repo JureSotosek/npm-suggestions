@@ -19,7 +19,7 @@ const attributesToRetrieve = [
 ];
 
 function search(query) {
-  return client().search({
+  return client.search({
     query,
     attributesToRetrieve,
     offset: 0,
@@ -28,7 +28,7 @@ function search(query) {
 }
 
 function getPackages(names) {
-  return client().getObjects(names, attributesToRetrieve);
+  return client.getObjects(names, attributesToRetrieve);
 }
 
 module.exports = { search, getPackages };
