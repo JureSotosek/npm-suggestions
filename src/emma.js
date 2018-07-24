@@ -5,7 +5,8 @@ const { parseElasticsearchResponse } = require('./libs');
 async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
   const elasticsearchResponse = await getSuggestions(
     dependencies,
-    devDependencies
+    devDependencies,
+    limit
   );
 
   const {
@@ -14,26 +15,29 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
     bucketSize
   } = parseElasticsearchResponse(elasticsearchResponse);
 
-  const shortenedSuggestedDependencies = suggestedDependencies
-    .filter(dependency => !dependencies.includes(dependency))
-    .slice(0, limit);
-
-  const shortenedSuggestedDevDependencies = suggestedDevDependencies
-    .filter(devDependency => !devDependencies.includes(devDependency))
-    .slice(0, limit);
-
-  const algoliaResponse = await getPackages([
-    ...shortenedSuggestedDependencies,
-    ...shortenedSuggestedDevDependencies
-  ]);
-
-  const packages = algoliaResponse.results;
-
-  const suggestedPackages = packages.filter(package =>
-    shortenedSuggestedDependencies.includes(package.name)
+  const filteredSuggestedDependencies = suggestedDependencies.filter(
+    dependency => !dependencies.includes(dependency)
   );
-  const suggestedDevPackages = packages.filter(package =>
-    shortenedSuggestedDevDependencies.includes(package.name)
+
+  const filteredSuggestedDevDependencies = suggestedDevDependencies.filter(
+    devDependency => !devDependencies.includes(devDependency)
+  );
+
+  const IDsToFetch = [
+    //Set used to remove duplicates
+    ...new Set([
+      ...filteredSuggestedDependencies,
+      ...filteredSuggestedDevDependencies
+    ])
+  ];
+
+  const algoliaResponse = await getPackages(IDsToFetch);
+
+  const suggestedPackages = algoliaResponse.results.filter(package =>
+    filteredSuggestedDependencies.includes(package.name)
+  );
+  const suggestedDevPackages = algoliaResponse.results.filter(package =>
+    filteredSuggestedDevDependencies.includes(package.name)
   );
 
   return {
