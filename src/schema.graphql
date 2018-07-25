@@ -7,14 +7,16 @@ type Query {
   search(query: String!): [Package]!
 }
 
+type Mutation {
+  indexDependencies(
+    dependencies: [Dependency]!
+    devDependencies: [Dependency]!
+  ): Boolean!
+}
+
 type suggestionsPayload {
   dependencies: [Package]!
   devDependencies: [Package]!
-}
-
-type DependencyPayload {
-  package: Package!
-  score: Float!
 }
 
 type Package {
@@ -28,4 +30,9 @@ type Package {
 
 type Owner {
   name: String!
+}
+
+input Dependency {
+  name: String!
+  version: String!
 }

@@ -55,10 +55,27 @@ function queryBuilder(dependencies, devDependencies, limit) {
 async function getSuggestions(dependencies, devDependencies, limit) {
   const client = await getClient();
 
-  return client.search({
+  const res = client.search({
     index: config.indexName,
     body: queryBuilder(dependencies, devDependencies, limit)
   });
+
+  return res;
 }
 
-module.exports = { getSuggestions };
+async function indexNewDoc(doc) {
+  const client = await getClient();
+
+  const res = await client
+    .index({
+      index: config.indexName,
+      type: config.docType,
+      body: doc
+    })
+    .then(() => true)
+    .catch(() => false);
+
+  return res;
+}
+
+module.exports = { getSuggestions, indexNewDoc };
