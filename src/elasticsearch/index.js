@@ -12,8 +12,6 @@ function queryBuilder(dependencies, devDependencies, limit) {
       })
     : [];
 
-  const size = limit + dependencies.length;
-
   const devDependenciesQuery = devDependencies
     ? devDependencies.map(devDependency => {
         return {
@@ -24,7 +22,7 @@ function queryBuilder(dependencies, devDependencies, limit) {
       })
     : [];
 
-  return {
+  const query = {
     size: 0,
     aggs: {
       includesDeps: {
@@ -36,20 +34,20 @@ function queryBuilder(dependencies, devDependencies, limit) {
         aggs: {
           mostCommonDependencies: {
             terms: {
-              field: 'dependencies',
-              size
+              field: 'dependencies'
             }
           },
           mostCommonDevDependencies: {
             terms: {
-              field: 'devDependencies',
-              size
+              field: 'devDependencies'
             }
           }
         }
       }
     }
   };
+
+  return query;
 }
 
 async function getSuggestions(dependencies, devDependencies, limit) {

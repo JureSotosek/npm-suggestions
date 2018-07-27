@@ -14,13 +14,13 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
     suggestedDevDependencies
   } = parseElasticsearchResponse(elasticsearchResponse);
 
-  const filteredSuggestedDependencies = suggestedDependencies.filter(
-    dependency => !dependencies.includes(dependency)
-  );
+  const filteredSuggestedDependencies = suggestedDependencies
+    .filter(dependency => !dependencies.includes(dependency))
+    .slice(0, limit);
 
-  const filteredSuggestedDevDependencies = suggestedDevDependencies.filter(
-    devDependency => !devDependencies.includes(devDependency)
-  );
+  const filteredSuggestedDevDependencies = suggestedDevDependencies
+    .filter(devDependency => !devDependencies.includes(devDependency))
+    .slice(0, limit);
 
   const IDsToFetch = [
     //Set used to remove duplicates
