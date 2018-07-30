@@ -25,6 +25,7 @@ See [config.js](./config.js):
 
 ### Other:
 - `indexName` - default: `npm-registry` name of the elasticsearch index
+- `docType` - default: `_doc` Default doc type.
 
 ## License
 
