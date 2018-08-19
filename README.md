@@ -19,14 +19,18 @@ yarn start
 See [config.js](./config.js):
 
 ### Required:
+
 - `elasticsearch_endpoint`: elasticsearch instance url
 - `user`: elasticsearch instance username
 - `password`: elasticsearch instance password
 
 ### Other:
+
 - `indexName` - default: `npm-registry` name of the elasticsearch index
 - `docType` - default: `_doc` Default doc type.
 
 ## License
 
 MIT © [Jure Sotošek](https://github.com/juresotosek)
+
+<p align="center"><a href="https://www.algolia.com"><img src="media/algolia.svg" width="400" /></a></p>
