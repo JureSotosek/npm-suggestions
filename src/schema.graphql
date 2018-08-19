@@ -22,7 +22,7 @@ type suggestionsPayload {
 type Package {
   name: String!
   version: String!
-  description: String!
+  description: String
   owner: Owner!
   humanDownloadsLast30Days: String!
   objectID: String!
