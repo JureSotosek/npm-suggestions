@@ -26,6 +26,7 @@ type Package {
   owner: Owner!
   humanDownloadsLast30Days: String!
   objectID: String!
+  popular: Boolean!
 }
 
 type Owner {

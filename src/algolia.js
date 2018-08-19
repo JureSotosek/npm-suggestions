@@ -15,7 +15,8 @@ const attributesToRetrieve = [
   'version',
   'description',
   'owner',
-  'humanDownloadsLast30Days'
+  'humanDownloadsLast30Days',
+  'popular'
 ];
 
 function search(query) {
