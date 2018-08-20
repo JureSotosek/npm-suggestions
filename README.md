@@ -10,7 +10,7 @@ It leverages Algolia's [npm-search](https://github.com/algolia/npm-search) and m
 
 The inner workings of the suggestions api and logic will be described in a future blog post.
 
-It was primeraly made to be used with [emma-www](https://github.com/juresotosek/emma-www) and [emma-cli](https://github.com/Maticzav/emma-cli), a CLI tool that helps you with setting up your projects.
+It was primeraly made to be used with [BuildAStack](https://github.com/juresotosek/buildastack) and [emma-cli](https://github.com/Maticzav/emma-cli), a CLI tool that helps you with setting up your projects.
 
 ## Start
 
