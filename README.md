@@ -6,7 +6,7 @@ It is accesible at https://npm-suggestions.herokuapp.com/.
 
 ## Overview
 
-It leverages Algolia's [npm-search](https://github.com/algolia/npm-search) and an Elasticsearch's [emma-replicator](https://github.com/JureSotosek/emma-replicator) copy of npm-registry.
+It leverages Algolia's [npm-search](https://github.com/algolia/npm-search) and mine [npm-to-elasticsearch](https://github.com/JureSotosek/npm-to-elasticsearch) copy of npm-registry.
 
 The inner workings of the suggestions api and logic will be described in a future blog post.
 
