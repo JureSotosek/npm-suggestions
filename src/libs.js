@@ -9,9 +9,14 @@ function parseElasticsearchResponse(response) {
     suggestion => suggestion.key
   );
 
+  const suggestedAllDependencies = response.aggregations.includesDeps.mostCommonAllDependencies.buckets.map(
+    suggestion => suggestion.key
+  );
+
   return {
     suggestedDependencies,
     suggestedDevDependencies,
+    suggestedAllDependencies,
     bucketSize
   };
 }

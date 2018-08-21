@@ -6,7 +6,7 @@ const defaultConfig = {
     'https://randomnumbersandletters.us-east-1.aws.found.io:9243/',
   user: 'elastic',
   password: '',
-  indexName: 'npm-registry',
+  indexName: 'npm-registry-prod',
   docType: '_doc'
 };
 

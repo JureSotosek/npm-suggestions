@@ -17,6 +17,7 @@ type Mutation {
 type suggestionsPayload {
   dependencies: [Package]!
   devDependencies: [Package]!
+  allDependencies: [Package]!
 }
 
 type Package {

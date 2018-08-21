@@ -1,7 +1,7 @@
 const { getClient } = require('./client');
 const config = require('../config');
 
-function queryBuilder(dependencies, devDependencies, limit) {
+function queryBuilder(dependencies, devDependencies) {
   const dependenciesQuery = dependencies
     ? dependencies.map(dependency => {
         return {
@@ -41,6 +41,11 @@ function queryBuilder(dependencies, devDependencies, limit) {
             terms: {
               field: 'devDependencies'
             }
+          },
+          mostCommonAllDependencies: {
+            terms: {
+              field: 'allDependencies'
+            }
           }
         }
       }
@@ -50,12 +55,12 @@ function queryBuilder(dependencies, devDependencies, limit) {
   return query;
 }
 
-async function getSuggestions(dependencies, devDependencies, limit) {
+async function getSuggestions(dependencies, devDependencies) {
   const client = await getClient();
 
   const res = client.search({
     index: config.indexName,
-    body: queryBuilder(dependencies, devDependencies, limit)
+    body: queryBuilder(dependencies, devDependencies)
   });
 
   return res;
