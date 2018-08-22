@@ -8,9 +8,14 @@ It is accesible at https://npm-suggestions.now.sh/.
 
 It leverages [Algolia's](https://www.algolia.com/) [npm-search](https://github.com/algolia/npm-search) and mine [npm-to-elasticsearch](https://github.com/JureSotosek/npm-to-elasticsearch) copy of npm-registry.
 
-The inner workings of the suggestions api and logic will be described in a future blog post.
+The inner workings of the suggestions api and logic will be described in a future blog post
 
-It was primeraly made to be used with [Buildastack](https://github.com/juresotosek/buildastack) and [emma-cli](https://github.com/Maticzav/emma-cli), a CLI tool that helps you with setting up your projects.
+## Used in
+
+- [Buildastack](https://github.com/JureSotosek/buildastack) - 🥞A tool for building an npm stack.
+- [Emma](https://github.com/maticzav/emma-cli) - 📦 Terminal assistant to find and install node packages.
+
+## Development
 
 ## Start
 
