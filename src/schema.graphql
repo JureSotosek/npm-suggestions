@@ -7,12 +7,12 @@ type Query {
   search(query: String!): [Package]!
 }
 
-type Mutation {
-  indexDependencies(
-    dependencies: [Dependency]!
-    devDependencies: [Dependency]!
-  ): Boolean!
-}
+# type Mutation {
+#   indexDependencies(
+#     dependencies: [Dependency]!
+#     devDependencies: [Dependency]!
+#   ): Boolean!
+# }
 
 type suggestionsPayload {
   dependencies: [Package]!
