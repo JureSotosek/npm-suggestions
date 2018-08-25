@@ -42,15 +42,13 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
   const algoliaResponse = await getPackages(IDsToFetch);
 
   const suggestedPackages = algoliaResponse.results.filter(
-    package => package && filteredSuggestedDependencies.includes(package.name)
+    pkg => pkg && filteredSuggestedDependencies.includes(pkg.name)
   );
   const suggestedDevPackages = algoliaResponse.results.filter(
-    package =>
-      package && filteredSuggestedDevDependencies.includes(package.name)
+    pkg => pkg && filteredSuggestedDevDependencies.includes(pkg.name)
   );
   const suggestedAllPackages = algoliaResponse.results.filter(
-    package =>
-      package && filteredSuggestedAllDependencies.includes(package.name)
+    pkg => pkg && filteredSuggestedAllDependencies.includes(pkg.name)
   );
 
   return {
