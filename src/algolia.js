@@ -19,17 +19,8 @@ const attributesToRetrieve = [
   'popular'
 ];
 
-function search(query) {
-  return client.search({
-    query,
-    attributesToRetrieve,
-    offset: 0,
-    length: 5
-  });
-}
-
 function getPackages(names) {
   return client.getObjects(names, attributesToRetrieve);
 }
 
-module.exports = { search, getPackages };
+module.exports = { getPackages };

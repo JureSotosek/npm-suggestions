@@ -4,20 +4,12 @@ type Query {
     devDependencies: [String]
     limit: Int
   ): suggestionsPayload!
-  search(query: String!): [Package]!
 }
 
-# type Mutation {
-#   indexDependencies(
-#     dependencies: [Dependency]!
-#     devDependencies: [Dependency]!
-#   ): Boolean!
-# }
-
 type suggestionsPayload {
-  dependencies: [Package]!
-  devDependencies: [Package]!
-  allDependencies: [Package]!
+  dependencies: [Package!]!
+  devDependencies: [Package!]!
+  allDependencies: [Package!]!
 }
 
 type Package {
@@ -32,9 +24,4 @@ type Package {
 
 type Owner {
   name: String!
-}
-
-input Dependency {
-  name: String!
-  version: String!
 }
