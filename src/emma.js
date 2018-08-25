@@ -1,4 +1,5 @@
-const { getSuggestions } = require('./elasticsearch');
+const { getSuggestions, indexNewDoc } = require('./elasticsearch');
+const { search: algoliaSearch, getPackages } = require('./algolia');
 const { parseElasticsearchResponse } = require('./libs');
 
 async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
@@ -59,4 +60,28 @@ async function suggestions(dependencies = [], devDependencies = [], limit = 5) {
   };
 }
 
-module.exports = { suggestions };
+async function search(query) {
+  const response = await algoliaSearch(query);
+
+  return response.hits;
+}
+
+async function indexDependencies(dependencies, devDependencies) {
+  const doc = {
+    source: 'emma',
+    dependencies: dependencies
+      ? dependencies.map(dependency => dependency.name)
+      : [],
+    dependenciesWithVersions: dependencies,
+    devDependencies: devDependencies
+      ? devDependencies.map(devDependency => devDependency.name)
+      : [],
+    devDependenciesWithVersions: devDependencies
+  };
+
+  const res = await indexNewDoc(doc);
+
+  return res;
+}
+
+module.exports = { suggestions, search, indexDependencies };

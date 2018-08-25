@@ -66,4 +66,19 @@ async function getSuggestions(dependencies, devDependencies) {
   return res;
 }
 
-module.exports = { getSuggestions };
+async function indexNewDoc(doc) {
+  const client = await getClient();
+
+  const res = await client
+    .index({
+      index: config.indexName,
+      type: config.docType,
+      body: doc
+    })
+    .then(() => true)
+    .catch(() => false);
+
+  return res;
+}
+
+module.exports = { getSuggestions, indexNewDoc };
