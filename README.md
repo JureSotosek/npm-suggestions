@@ -12,7 +12,7 @@ The inner workings of the suggestions api and logic will be described in a futur
 
 ## Used in
 
-- [Buildastack](https://github.com/JureSotosek/buildastack) - 🥞A tool for building an npm stack.
+- [Buildastack](https://github.com/JureSotosek/buildastack-client) - 🥞 A tool for building an npm stack.
 - [Emma](https://github.com/maticzav/emma-cli) - 📦 Terminal assistant to find and install node packages.
 
 ## Development
