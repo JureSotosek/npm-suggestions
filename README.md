@@ -8,7 +8,7 @@ It is accesible at https://npm-suggestions.now.sh/.
 
 It leverages [Algolia's](https://www.algolia.com/) [npm-search](https://github.com/algolia/npm-search) and a [npm-to-elasticsearch](https://github.com/JureSotosek/npm-to-elasticsearch) copy of npm-registry.
 
-The inner workings of the suggestions api and logic will be described in a future blog post
+The inner workings of the suggestions api and logic will be described in a future blog post.
 
 ## Used in
 

@@ -3,4 +3,4 @@ projects:
     schemaPath: src/schema.graphql
     extensions:
       endpoints:
-        default: https://emma-suggestions.herokuapp.com:4000
+        default: https://npm-suggestions.now.sh
