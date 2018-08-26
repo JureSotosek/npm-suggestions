@@ -1,7 +1,10 @@
 const { getClient } = require('./client');
 const config = require('../config');
 
-function queryBuilder(dependencies, devDependencies) {
+function queryBuilder(dependencies, devDependencies, type) {
+  const mostCommonField =
+    type === 'regular' ? 'dependencies' : type + 'Dependencies';
+
   const dependenciesQuery = dependencies
     ? dependencies.map(dependency => {
         return {
@@ -34,17 +37,7 @@ function queryBuilder(dependencies, devDependencies) {
         aggs: {
           mostCommonDependencies: {
             terms: {
-              field: 'dependencies'
-            }
-          },
-          mostCommonDevDependencies: {
-            terms: {
-              field: 'devDependencies'
-            }
-          },
-          mostCommonAllDependencies: {
-            terms: {
-              field: 'allDependencies'
+              field: mostCommonField
             }
           }
         }
@@ -55,30 +48,15 @@ function queryBuilder(dependencies, devDependencies) {
   return query;
 }
 
-async function getSuggestions(dependencies, devDependencies) {
+async function getSuggestions(dependencies, devDependencies, type) {
   const client = await getClient();
 
   const res = client.search({
     index: config.indexName,
-    body: queryBuilder(dependencies, devDependencies)
+    body: queryBuilder(dependencies, devDependencies, type)
   });
 
   return res;
 }
 
-async function indexNewDoc(doc) {
-  const client = await getClient();
-
-  const res = await client
-    .index({
-      index: config.indexName,
-      type: config.docType,
-      body: doc
-    })
-    .then(() => true)
-    .catch(() => false);
-
-  return res;
-}
-
-module.exports = { getSuggestions, indexNewDoc };
+module.exports = { getSuggestions };

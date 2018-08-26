@@ -3,13 +3,13 @@ type Query {
     dependencies: [String]
     devDependencies: [String]
     limit: Int
-  ): suggestionsPayload!
+  ): SuggestionsPayload!
 }
 
-type suggestionsPayload {
-  dependencies: [Package!]!
-  devDependencies: [Package!]!
-  allDependencies: [Package!]!
+type SuggestionsPayload {
+  suggestions: [Package!]!
+  devSuggestions: [Package!]!
+  allSuggestions: [Package!]!
 }
 
 type Package {
