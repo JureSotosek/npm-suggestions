@@ -22,11 +22,11 @@ async function suggestions(
     .filter(dependency => !dependencies.includes(dependency))
     .slice(0, limit);
 
-  const IDsToFetch = filteredSuggestedDependencies;
+  const algoliaResponse = await getPackages(filteredSuggestedDependencies);
 
-  const algoliaResponse = await getPackages(IDsToFetch);
+  const removedNullValues = algoliaResponse.results.filter(pkg => pkg);
 
-  return algoliaResponse.results;
+  return removedNullValues;
 }
 
 module.exports = { suggestions };
