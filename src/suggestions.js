@@ -19,7 +19,11 @@ async function suggestions(
   );
 
   const filteredSuggestedDependencies = suggestedDependencies
-    .filter(dependency => !dependencies.includes(dependency))
+    .filter(
+      dependency =>
+        !dependencies.includes(dependency) &&
+        !devDependencies.includes(dependency)
+    )
     .slice(0, limit);
 
   const algoliaResponse = await getPackages(filteredSuggestedDependencies);
