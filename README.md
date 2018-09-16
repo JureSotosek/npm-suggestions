@@ -15,29 +15,6 @@ The inner workings of the suggestions api and logic will be described in a futur
 - [Buildastack](https://github.com/JureSotosek/buildastack) - 🥞A tool for building an npm stack.
 - [Emma](https://github.com/maticzav/emma-cli) - 📦 Terminal assistant to find and install node packages.
 
-## Development
-
-## Start
-
-```sh
-yarn start
-```
-
-## Env variables
-
-See [config.js](./config.js):
-
-### Required:
-
-- `elasticsearch_endpoint`: elasticsearch instance url
-- `user`: elasticsearch instance username
-- `password`: elasticsearch instance password
-
-### Other:
-
-- `indexName` - default: `npm-registry` name of the elasticsearch index
-- `docType` - default: `_doc` Default doc type.
-
 ## License
 
 MIT © [Jure Sotošek](https://github.com/juresotosek)
