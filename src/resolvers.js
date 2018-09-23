@@ -12,6 +12,7 @@ const SuggestionsPayload = {
       parent.dependencies,
       parent.devDependencies,
       parent.limit,
+      parent.page,
       'regular'
     );
   },
@@ -21,6 +22,7 @@ const SuggestionsPayload = {
       parent.dependencies,
       parent.devDependencies,
       parent.limit,
+      parent.page,
       'dev'
     );
   },
@@ -30,6 +32,7 @@ const SuggestionsPayload = {
       parent.dependencies,
       parent.devDependencies,
       parent.limit,
+      parent.page,
       'all'
     );
   }

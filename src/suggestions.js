@@ -6,6 +6,7 @@ async function suggestions(
   dependencies = [],
   devDependencies = [],
   limit = 5,
+  page = 1,
   type
 ) {
   const elasticsearchResponse = await getSuggestions(
@@ -24,7 +25,7 @@ async function suggestions(
         !dependencies.includes(dependency) &&
         !devDependencies.includes(dependency)
     )
-    .slice(0, limit);
+    .slice((page - 1) * limit, limit);
 
   const algoliaResponse = await getPackages(filteredSuggestedDependencies);
 
