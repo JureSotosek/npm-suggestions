@@ -18,6 +18,7 @@
     "algoliasearch": "^3.35.1",
     "dotenv": "8.2.0",
     "elasticsearch": "^16.5.0",
+    "graphql": "^14.5.8",
     "graphql-yoga": "1.18.3",
     "pouchdb": "^7.1.1"
   },
