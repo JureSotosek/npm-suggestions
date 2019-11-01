@@ -15,11 +15,11 @@
   "keywords": [],
   "license": "MIT",
   "dependencies": {
-    "algoliasearch": "^3.29.0",
-    "dotenv": "6.0.0",
-    "elasticsearch": "^15.1.1",
-    "graphql-yoga": "1.14.12",
-    "pouchdb": "^7.0.0"
+    "algoliasearch": "^3.35.1",
+    "dotenv": "8.2.0",
+    "elasticsearch": "^16.5.0",
+    "graphql-yoga": "1.18.3",
+    "pouchdb": "^7.1.1"
   },
   "devDependencies": {
     "graphql-cli": "2.16.4",
